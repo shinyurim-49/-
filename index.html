@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>AI/SW 포트폴리오 - 진로 분석 로드맵</title>
+    <style>
+        /* 기본 설정 및 색상 변수 (다크모드 & 네온 컬러) */
+        :root {
+            --bg-color: #060b14; /* 다크 네이비/블랙 */
+            --surface-color: #0f1c30;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --neon-green: #39ff14;
+            --neon-blue: #00f0ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth; /* 부드러운 스크롤 */
+        }
+
+        /* 네비게이션 바 (상단 고정) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(6, 11, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--neon-green);
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+        }
+
+        /* 공통 섹션 스타일 */
+        section {
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem 2rem;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        /* 카드 그리드 레이아웃 (유망직무, 필수역량) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .card h3 {
+            color: var(--neon-green);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p, .card li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 타임라인 레이아웃 (4년 로드맵) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: rgba(0, 240, 255, 0.3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--bg-color);
+            border: 4px solid var(--neon-green);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -10px; }
+
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: var(--surface-color);
+            position: relative;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .timeline-content h3 {
+            color: var(--neon-green);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .focus {
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* 모바일 반응형 처리 */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none; /* 모바일 단순화를 위해 숨김 처리 (필요시 햄버거 메뉴 구현) */
+            }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 21px; }
+            .left::after, .right::after { left: 21px; }
+            .right { left: 0%; }
+            h2.section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 고정 네비게이션 -->
+    <header>
+        <nav>
+            <a href="#" class="logo">My Portfolio</a>
+            <div class="nav-links">
+                <a href="#jobs" class="nav-link">미래 유망 직무</a>
+                <a href="#skills" class="nav-link">핵심 필수 역량</a>
+                <a href="#roadmap" class="nav-link">나의 4년 로드맵</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 섹션 1: 미래 유망 직무 -->
+    <section id="jobs">
+        <h2 class="section-title">🚀 2026 급증하는 블루오션 직무 Top 3</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>1. 데이터 엔지니어<br>(Data Engineers)</h3>
+                <p><strong>채용 급증 이유:</strong> 기업의 57%가 자사 데이터 구조 및 거버넌스 부족으로 'AI 도입 준비가 안됨' 응답</p>
+                <p><strong>현장 인력 부족:</strong> AI 모델조차 편향과 오류, 재무적 위험 초래. 데이터를 맥락화하고 통합하여 신뢰할 수 있는 파이프라인 구축 필요</p>
+            </div>
+            <div class="card">
+                <h3>2. AI 거버넌스 해석가 및 전문가<br>(Governance Interpreters & Specialists)</h3>
+                <p><strong>채용 급증 이유:</strong> 모델의 환각 현상, 편향성, 데이터 유출 통제를 위한 AI TRiSM 도입 필수 방어선</p>
+                <p><strong>현장 인력 부족:</strong> 복잡한 규제 및 리스크 프레임워크를 실무에 적용하는 해석가 절실 (금융/의료 등 안전한 AI 배포 경쟁)</p>
+            </div>
+            <div class="card">
+                <h3>3. AI 엔지니어 및 도메인 전문가<br>(AI Engineering Custodians)</h3>
+                <p><strong>채용 급증 이유:</strong> 개발자의 핵심 역할이 단순 코딩에서 '시스템 설계 및 감독'으로 전환</p>
+                <p><strong>현장 인력 부족:</strong> 재사용 가능한 파이프라인과 배포 프레임워크 유지 관리. 비즈니스 언어로 상업적 가치와 안전성을 설명할 '번역가' 수요 증가</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 섹션 2: 핵심 필수 역량 -->
+    <section id="skills">
+        <h2 class="section-title">🎯 2026년 채용 시장 핵심 역량 Top 3</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>1. AI-Ready 데이터 파이프라인 구축</h3>
+                <p><strong>설명:</strong> 데이터 품질이나 거버넌스 측면에서 AI 준비성(Readiness)은 가장 큰 장벽</p>
+                <p><strong>평가 이유:</strong> 데이터의 맥락을 이해하고 메타데이터 관리와 파이프라인을 최적화하여 모델이 신뢰할 수 있는 기반 다지기</p>
+            </div>
+            <div class="card">
+                <h3>2. AI 거버넌스(TRiSM) 및 리스크 통제</h3>
+                <p><strong>설명:</strong> 핵심 프로세스에서 환각, 편향성, 데이터 유출을 방지하기 위한 AI TRiSM(신뢰, 리스크, 보안 관리) 방어선 구축</p>
+                <p><strong>평가 이유:</strong> 실무 개발 표준으로 번역해 '거버넌스 해석가' 가치 급등. 결과물 출처 보장 및 오남용 제어 지식 필수</p>
+            </div>
+            <div class="card">
+                <h3>3. 시스템 아키텍처 설계 및 맥락 번역</h3>
+                <p><strong>설명:</strong> 단발성 모델을 넘어 재사용 가능한 프레임워크 구축 및 다중 에이전트 시스템(Multiagent Systems) 설계 및 오케스트레이션</p>
+                <p><strong>평가 이유:</strong> AI의 상업적 가치와 안전성을 경영진과 고객에게 비즈니스 언어로 번역 가능한 대체 불가능한 인재</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 섹션 3: 나의 4년 로드맵 -->
+    <section id="roadmap">
+        <h2 class="section-title">🎓 [AI 시스템 엔지니어] 1~4학년 로드맵</h2>
+        <div class="timeline">
+            <!-- 1학년 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>1학년: 기반 다지기</h3>
+                    <span class="focus">프로그래밍 & 수학적 사고</span>
+                    <p><strong>핵심 공부:</strong> 파이썬(Python), C/C++ 핵심 언어, 이산수학, 선형대수학, 확률과 통계</p>
+                    <p><strong>프로젝트:</strong> 공공 API 활용 간단한 데이터 수집 및 자동화 스크립트 작성</p>
+                    <p><strong>목표:</strong> 데이터 처리 논리 구조와 알고리즘 기초 탄탄히 다지기</p>
+                </div>
+            </div>
+            <!-- 2학년 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2학년: 데이터 인프라 & 백엔드</h3>
+                    <span class="focus">Data Readiness</span>
+                    <p><strong>핵심 공부:</strong> 자료구조, 데이터베이스(SQL/NoSQL), 컴퓨터 네트워크, 운영체제</p>
+                    <p><strong>프로젝트:</strong> 웹 크롤러나 센서 데이터 수집 후 DB 적재, 분석하는 데이터 파이프라인 구축</p>
+                    <p><strong>목표:</strong> 원천 데이터를 정제하고 구조화하는 데이터 엔지니어링 기본기 갖추기</p>
+                </div>
+            </div>
+            <!-- 3학년 -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>3학년: 모델 연동 & ML/AI 엔지니어링</h3>
+                    <span class="focus">ModelOps & Multimodal</span>
+                    <p><strong>핵심 공부:</strong> 기계학습(ML), 딥러닝(DL), 클라우드 컴퓨팅(AWS, GCP), 소프트웨어 공학</p>
+                    <p><strong>프로젝트:</strong> 텍스트, 이미지, 오디오 멀티모달 AI 적용. 모델을 클라우드 환경 배포 및 API 서비스화(CI/CD)</p>
+                    <p><strong>목표:</strong> 시스템에 안정적으로 연동하여 서비스화하는 AI 엔지니어링(ModelOps) 능력 증명</p>
+                </div>
+            </div>
+            <!-- 4학년 -->
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>4학년: 거버넌스 적용 & 다중 에이전트</h3>
+                    <span class="focus">Trust & Orchestration</span>
+                    <p><strong>핵심 공부:</strong> 정보 보안, 시스템 아키텍처 설계, AI 윤리 및 거버넌스(TRiSM)</p>
+                    <p><strong>프로젝트:</strong> 다중 에이전트 시스템(Multiagent System) 개발 (계획, 검색, 실행 역할 분담 시스템)</p>
+                    <p><strong>목표:</strong> 비즈니스 환경에서 AI를 통제하는 대체 불가능한 전문가로서의 포트폴리오 완성</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 스크롤 이벤트 자바스크립트 -->
+    <script>
+        // 스크롤 시 해당 섹션의 네비게이션 메뉴 하이라이트
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
